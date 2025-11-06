@@ -13,5 +13,9 @@ export function getNativeTokenDBAddress(chain: Chain): string {
     case Chain.EthereumGoerli:
     case Chain.Optimism:
       return 'ETH'
+    case Chain.JocTestnet:
+      return 'JOCT'
+    default:
+      return 'ETH'
   }
 }

@@ -3,13 +3,14 @@ import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
 import polygonCircleLogoUrl from 'assets/images/polygonCircle.png'
 import { default as arbitrumCircleLogoUrl, default as arbitrumLogoUrl } from 'assets/svg/arbitrum_logo.svg'
 import celoLogo from 'assets/svg/celo_logo.svg'
+import jocLogo from 'assets/svg/joc_logo.svg'
 import optimismLogoUrl from 'assets/svg/optimistic_ethereum.svg'
 import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
 import ms from 'ms.macro'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, CELO_LIST, OPTIMISM_LIST } from './lists'
+import { ARBITRUM_LIST, CELO_LIST, JOC_LIST, OPTIMISM_LIST } from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms`12s`
 
@@ -216,6 +217,18 @@ const CHAIN_INFO: ChainInfoMap = {
     logoUrl: celoLogo,
     nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
     defaultListUrl: CELO_LIST,
+  },
+  [SupportedChainId.JOC_TESTNET]: {
+    networkType: NetworkType.L1,
+    blockWaitMsBeforeWarning: ms`10m`,
+    bridge: 'https://x-gate.org',
+    docs: 'https://www.japanopenchain.org/docs',
+    explorer: 'https://explorer.testnet.japanopenchain.org',
+    infoLink: 'https://info.uniswap.org/#/joc_testnet',
+    label: 'JOC Testnet',
+    logoUrl: jocLogo,
+    nativeCurrency: { name: 'JOC', symbol: 'JOCT', decimals: 18 },
+    defaultListUrl: JOC_LIST,
   },
 }
 

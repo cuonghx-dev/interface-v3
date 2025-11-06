@@ -87,6 +87,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     // "Safe" URLs
     `https://alfajores-forno.celo-testnet.org`,
   ],
+  [SupportedChainId.JOC_TESTNET]: ['https://rpc-3.testnet.japanopenchain.org'],
 }
 
 /**
@@ -134,4 +135,5 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
   ],
   [SupportedChainId.CELO]: FALLBACK_URLS[SupportedChainId.CELO],
   [SupportedChainId.CELO_ALFAJORES]: FALLBACK_URLS[SupportedChainId.CELO_ALFAJORES],
+  [SupportedChainId.JOC_TESTNET]: [...FALLBACK_URLS[SupportedChainId.JOC_TESTNET]],
 }

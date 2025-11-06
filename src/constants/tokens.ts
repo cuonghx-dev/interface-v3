@@ -375,6 +375,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'CELO',
     'Celo native asset'
   ),
+  [SupportedChainId.JOC_TESTNET]: new Token(
+    SupportedChainId.JOC_TESTNET,
+    '0x8B85219c0767Ce4FA5ae5944d71aB4a3De27090d',
+    18,
+    'WJOCT',
+    'Wrapped JOCT'
+  ),
 }
 
 export function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
@@ -396,6 +403,10 @@ function isMatic(chainId: number): chainId is SupportedChainId.POLYGON | Support
   return chainId === SupportedChainId.POLYGON_MUMBAI || chainId === SupportedChainId.POLYGON
 }
 
+function isJoc(chainId: number): chainId is SupportedChainId.JOC_TESTNET {
+  return chainId === SupportedChainId.JOC_TESTNET
+}
+
 class MaticNativeCurrency extends NativeCurrency {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
@@ -411,6 +422,24 @@ class MaticNativeCurrency extends NativeCurrency {
   public constructor(chainId: number) {
     if (!isMatic(chainId)) throw new Error('Not matic')
     super(chainId, 18, 'MATIC', 'Polygon Matic')
+  }
+}
+
+class JocNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    if (!isJoc(this.chainId)) throw new Error('Not joc')
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    if (!isJoc(chainId)) throw new Error('Not joc')
+    super(chainId, 18, 'JOCT', 'JOC Testnet')
   }
 }
 
@@ -436,6 +465,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = new MaticNativeCurrency(chainId)
   } else if (isCelo(chainId)) {
     nativeCurrency = getCeloNativeCurrency(chainId)
+  } else if (isJoc(chainId)) {
+    nativeCurrency = new JocNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

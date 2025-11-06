@@ -5,6 +5,7 @@ import { isAddress } from 'utils'
 
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
 import CeloLogo from '../../assets/svg/celo_logo.svg'
+import JocLogo from '../../assets/svg/joc_logo.svg'
 import MaticLogo from '../../assets/svg/matic-token-icon.svg'
 import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
 
@@ -33,6 +34,8 @@ export function getNativeLogoURI(chainId: SupportedChainId = SupportedChainId.MA
     case SupportedChainId.CELO:
     case SupportedChainId.CELO_ALFAJORES:
       return CeloLogo
+    case SupportedChainId.JOC_TESTNET:
+      return JocLogo
     default:
       return EthereumLogo
   }

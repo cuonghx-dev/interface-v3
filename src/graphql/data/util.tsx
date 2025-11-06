@@ -70,6 +70,7 @@ export const CHAIN_NAME_TO_CHAIN_ID: { [key: string]: SupportedChainId } = {
   CELO: SupportedChainId.CELO,
   ARBITRUM: SupportedChainId.ARBITRUM_ONE,
   OPTIMISM: SupportedChainId.OPTIMISM,
+  JOC_TESTNET: SupportedChainId.JOC_TESTNET,
 }
 
 export const BACKEND_CHAIN_NAMES: Chain[] = [Chain.Ethereum, Chain.Polygon, Chain.Optimism, Chain.Arbitrum, Chain.Celo]

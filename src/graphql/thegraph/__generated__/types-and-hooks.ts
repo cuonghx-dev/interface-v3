@@ -16,7 +16,16 @@ export type Scalars = {
   BigDecimal: any;
   BigInt: any;
   Bytes: any;
+  /** 8 bytes signed integer */
+  Int8: any;
+  /** A string representation of microseconds UNIX timestamp (16 digits) */
+  Timestamp: any;
 };
+
+export enum Aggregation_Interval {
+  Day = 'day',
+  Hour = 'hour'
+}
 
 export type BlockChangedFilter = {
   number_gte: Scalars['Int'];
@@ -37,6 +46,7 @@ export type Bundle = {
 export type Bundle_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Bundle_Filter>>>;
   ethPriceUSD?: InputMaybe<Scalars['BigDecimal']>;
   ethPriceUSD_gt?: InputMaybe<Scalars['BigDecimal']>;
   ethPriceUSD_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -53,6 +63,7 @@ export type Bundle_Filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<Bundle_Filter>>>;
 };
 
 export enum Bundle_OrderBy {
@@ -114,6 +125,7 @@ export type Burn_Filter = {
   amount_lte?: InputMaybe<Scalars['BigInt']>;
   amount_not?: InputMaybe<Scalars['BigInt']>;
   amount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  and?: InputMaybe<Array<InputMaybe<Burn_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -130,15 +142,24 @@ export type Burn_Filter = {
   logIndex_lte?: InputMaybe<Scalars['BigInt']>;
   logIndex_not?: InputMaybe<Scalars['BigInt']>;
   logIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Burn_Filter>>>;
   origin?: InputMaybe<Scalars['Bytes']>;
   origin_contains?: InputMaybe<Scalars['Bytes']>;
+  origin_gt?: InputMaybe<Scalars['Bytes']>;
+  origin_gte?: InputMaybe<Scalars['Bytes']>;
   origin_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  origin_lt?: InputMaybe<Scalars['Bytes']>;
+  origin_lte?: InputMaybe<Scalars['Bytes']>;
   origin_not?: InputMaybe<Scalars['Bytes']>;
   origin_not_contains?: InputMaybe<Scalars['Bytes']>;
   origin_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   owner?: InputMaybe<Scalars['Bytes']>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
+  owner_gt?: InputMaybe<Scalars['Bytes']>;
+  owner_gte?: InputMaybe<Scalars['Bytes']>;
   owner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  owner_lt?: InputMaybe<Scalars['Bytes']>;
+  owner_lte?: InputMaybe<Scalars['Bytes']>;
   owner_not?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -262,12 +283,74 @@ export enum Burn_OrderBy {
   Origin = 'origin',
   Owner = 'owner',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   TickLower = 'tickLower',
   TickUpper = 'tickUpper',
   Timestamp = 'timestamp',
   Token0 = 'token0',
+  Token0Decimals = 'token0__decimals',
+  Token0DerivedEth = 'token0__derivedETH',
+  Token0FeesUsd = 'token0__feesUSD',
+  Token0Id = 'token0__id',
+  Token0Name = 'token0__name',
+  Token0PoolCount = 'token0__poolCount',
+  Token0Symbol = 'token0__symbol',
+  Token0TotalSupply = 'token0__totalSupply',
+  Token0TotalValueLocked = 'token0__totalValueLocked',
+  Token0TotalValueLockedUsd = 'token0__totalValueLockedUSD',
+  Token0TotalValueLockedUsdUntracked = 'token0__totalValueLockedUSDUntracked',
+  Token0TxCount = 'token0__txCount',
+  Token0UntrackedVolumeUsd = 'token0__untrackedVolumeUSD',
+  Token0Volume = 'token0__volume',
+  Token0VolumeUsd = 'token0__volumeUSD',
   Token1 = 'token1',
-  Transaction = 'transaction'
+  Token1Decimals = 'token1__decimals',
+  Token1DerivedEth = 'token1__derivedETH',
+  Token1FeesUsd = 'token1__feesUSD',
+  Token1Id = 'token1__id',
+  Token1Name = 'token1__name',
+  Token1PoolCount = 'token1__poolCount',
+  Token1Symbol = 'token1__symbol',
+  Token1TotalSupply = 'token1__totalSupply',
+  Token1TotalValueLocked = 'token1__totalValueLocked',
+  Token1TotalValueLockedUsd = 'token1__totalValueLockedUSD',
+  Token1TotalValueLockedUsdUntracked = 'token1__totalValueLockedUSDUntracked',
+  Token1TxCount = 'token1__txCount',
+  Token1UntrackedVolumeUsd = 'token1__untrackedVolumeUSD',
+  Token1Volume = 'token1__volume',
+  Token1VolumeUsd = 'token1__volumeUSD',
+  Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp'
 }
 
 export type Collect = {
@@ -312,6 +395,7 @@ export type Collect_Filter = {
   amountUSD_lte?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  and?: InputMaybe<Array<InputMaybe<Collect_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -328,9 +412,14 @@ export type Collect_Filter = {
   logIndex_lte?: InputMaybe<Scalars['BigInt']>;
   logIndex_not?: InputMaybe<Scalars['BigInt']>;
   logIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Collect_Filter>>>;
   owner?: InputMaybe<Scalars['Bytes']>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
+  owner_gt?: InputMaybe<Scalars['Bytes']>;
+  owner_gte?: InputMaybe<Scalars['Bytes']>;
   owner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  owner_lt?: InputMaybe<Scalars['Bytes']>;
+  owner_lte?: InputMaybe<Scalars['Bytes']>;
   owner_not?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -410,10 +499,42 @@ export enum Collect_OrderBy {
   LogIndex = 'logIndex',
   Owner = 'owner',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   TickLower = 'tickLower',
   TickUpper = 'tickUpper',
   Timestamp = 'timestamp',
-  Transaction = 'transaction'
+  Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp'
 }
 
 export type Factory = {
@@ -436,6 +557,7 @@ export type Factory = {
 export type Factory_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Factory_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -444,6 +566,7 @@ export type Factory_Filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<Factory_Filter>>>;
   owner?: InputMaybe<Scalars['ID']>;
   owner_gt?: InputMaybe<Scalars['ID']>;
   owner_gte?: InputMaybe<Scalars['ID']>;
@@ -617,6 +740,7 @@ export type Flash_Filter = {
   amountUSD_lte?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  and?: InputMaybe<Array<InputMaybe<Flash_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -633,6 +757,7 @@ export type Flash_Filter = {
   logIndex_lte?: InputMaybe<Scalars['BigInt']>;
   logIndex_not?: InputMaybe<Scalars['BigInt']>;
   logIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Flash_Filter>>>;
   pool?: InputMaybe<Scalars['String']>;
   pool_?: InputMaybe<Pool_Filter>;
   pool_contains?: InputMaybe<Scalars['String']>;
@@ -656,13 +781,21 @@ export type Flash_Filter = {
   pool_starts_with_nocase?: InputMaybe<Scalars['String']>;
   recipient?: InputMaybe<Scalars['Bytes']>;
   recipient_contains?: InputMaybe<Scalars['Bytes']>;
+  recipient_gt?: InputMaybe<Scalars['Bytes']>;
+  recipient_gte?: InputMaybe<Scalars['Bytes']>;
   recipient_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  recipient_lt?: InputMaybe<Scalars['Bytes']>;
+  recipient_lte?: InputMaybe<Scalars['Bytes']>;
   recipient_not?: InputMaybe<Scalars['Bytes']>;
   recipient_not_contains?: InputMaybe<Scalars['Bytes']>;
   recipient_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_contains?: InputMaybe<Scalars['Bytes']>;
+  sender_gt?: InputMaybe<Scalars['Bytes']>;
+  sender_gte?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sender_lt?: InputMaybe<Scalars['Bytes']>;
+  sender_lte?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
   sender_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -706,10 +839,42 @@ export enum Flash_OrderBy {
   Id = 'id',
   LogIndex = 'logIndex',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Recipient = 'recipient',
   Sender = 'sender',
   Timestamp = 'timestamp',
-  Transaction = 'transaction'
+  Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp'
 }
 
 export type Mint = {
@@ -767,6 +932,7 @@ export type Mint_Filter = {
   amount_lte?: InputMaybe<Scalars['BigInt']>;
   amount_not?: InputMaybe<Scalars['BigInt']>;
   amount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  and?: InputMaybe<Array<InputMaybe<Mint_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -783,15 +949,24 @@ export type Mint_Filter = {
   logIndex_lte?: InputMaybe<Scalars['BigInt']>;
   logIndex_not?: InputMaybe<Scalars['BigInt']>;
   logIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Mint_Filter>>>;
   origin?: InputMaybe<Scalars['Bytes']>;
   origin_contains?: InputMaybe<Scalars['Bytes']>;
+  origin_gt?: InputMaybe<Scalars['Bytes']>;
+  origin_gte?: InputMaybe<Scalars['Bytes']>;
   origin_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  origin_lt?: InputMaybe<Scalars['Bytes']>;
+  origin_lte?: InputMaybe<Scalars['Bytes']>;
   origin_not?: InputMaybe<Scalars['Bytes']>;
   origin_not_contains?: InputMaybe<Scalars['Bytes']>;
   origin_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   owner?: InputMaybe<Scalars['Bytes']>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
+  owner_gt?: InputMaybe<Scalars['Bytes']>;
+  owner_gte?: InputMaybe<Scalars['Bytes']>;
   owner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  owner_lt?: InputMaybe<Scalars['Bytes']>;
+  owner_lte?: InputMaybe<Scalars['Bytes']>;
   owner_not?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -818,7 +993,11 @@ export type Mint_Filter = {
   pool_starts_with_nocase?: InputMaybe<Scalars['String']>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_contains?: InputMaybe<Scalars['Bytes']>;
+  sender_gt?: InputMaybe<Scalars['Bytes']>;
+  sender_gte?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sender_lt?: InputMaybe<Scalars['Bytes']>;
+  sender_lte?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
   sender_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -921,13 +1100,75 @@ export enum Mint_OrderBy {
   Origin = 'origin',
   Owner = 'owner',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Sender = 'sender',
   TickLower = 'tickLower',
   TickUpper = 'tickUpper',
   Timestamp = 'timestamp',
   Token0 = 'token0',
+  Token0Decimals = 'token0__decimals',
+  Token0DerivedEth = 'token0__derivedETH',
+  Token0FeesUsd = 'token0__feesUSD',
+  Token0Id = 'token0__id',
+  Token0Name = 'token0__name',
+  Token0PoolCount = 'token0__poolCount',
+  Token0Symbol = 'token0__symbol',
+  Token0TotalSupply = 'token0__totalSupply',
+  Token0TotalValueLocked = 'token0__totalValueLocked',
+  Token0TotalValueLockedUsd = 'token0__totalValueLockedUSD',
+  Token0TotalValueLockedUsdUntracked = 'token0__totalValueLockedUSDUntracked',
+  Token0TxCount = 'token0__txCount',
+  Token0UntrackedVolumeUsd = 'token0__untrackedVolumeUSD',
+  Token0Volume = 'token0__volume',
+  Token0VolumeUsd = 'token0__volumeUSD',
   Token1 = 'token1',
-  Transaction = 'transaction'
+  Token1Decimals = 'token1__decimals',
+  Token1DerivedEth = 'token1__derivedETH',
+  Token1FeesUsd = 'token1__feesUSD',
+  Token1Id = 'token1__id',
+  Token1Name = 'token1__name',
+  Token1PoolCount = 'token1__poolCount',
+  Token1Symbol = 'token1__symbol',
+  Token1TotalSupply = 'token1__totalSupply',
+  Token1TotalValueLocked = 'token1__totalValueLocked',
+  Token1TotalValueLockedUsd = 'token1__totalValueLockedUSD',
+  Token1TotalValueLockedUsdUntracked = 'token1__totalValueLockedUSDUntracked',
+  Token1TxCount = 'token1__txCount',
+  Token1UntrackedVolumeUsd = 'token1__untrackedVolumeUSD',
+  Token1Volume = 'token1__volume',
+  Token1VolumeUsd = 'token1__volumeUSD',
+  Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp'
 }
 
 /** Defines the order direction, either ascending or descending */
@@ -1066,6 +1307,7 @@ export type PoolDayData = {
 export type PoolDayData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<PoolDayData_Filter>>>;
   close?: InputMaybe<Scalars['BigDecimal']>;
   close_gt?: InputMaybe<Scalars['BigDecimal']>;
   close_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -1146,6 +1388,7 @@ export type PoolDayData_Filter = {
   open_lte?: InputMaybe<Scalars['BigDecimal']>;
   open_not?: InputMaybe<Scalars['BigDecimal']>;
   open_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  or?: InputMaybe<Array<InputMaybe<PoolDayData_Filter>>>;
   pool?: InputMaybe<Scalars['String']>;
   pool_?: InputMaybe<Pool_Filter>;
   pool_contains?: InputMaybe<Scalars['String']>;
@@ -1253,6 +1496,33 @@ export enum PoolDayData_OrderBy {
   Low = 'low',
   Open = 'open',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   SqrtPrice = 'sqrtPrice',
   Tick = 'tick',
   Token0Price = 'token0Price',
@@ -1291,6 +1561,7 @@ export type PoolHourData = {
 export type PoolHourData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<PoolHourData_Filter>>>;
   close?: InputMaybe<Scalars['BigDecimal']>;
   close_gt?: InputMaybe<Scalars['BigDecimal']>;
   close_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -1363,6 +1634,7 @@ export type PoolHourData_Filter = {
   open_lte?: InputMaybe<Scalars['BigDecimal']>;
   open_not?: InputMaybe<Scalars['BigDecimal']>;
   open_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  or?: InputMaybe<Array<InputMaybe<PoolHourData_Filter>>>;
   periodStartUnix?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gt?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gte?: InputMaybe<Scalars['Int']>;
@@ -1478,6 +1750,33 @@ export enum PoolHourData_OrderBy {
   Open = 'open',
   PeriodStartUnix = 'periodStartUnix',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   SqrtPrice = 'sqrtPrice',
   Tick = 'tick',
   Token0Price = 'token0Price',
@@ -1492,6 +1791,7 @@ export enum PoolHourData_OrderBy {
 export type Pool_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Pool_Filter>>>;
   burns_?: InputMaybe<Burn_Filter>;
   collectedFeesToken0?: InputMaybe<Scalars['BigDecimal']>;
   collectedFeesToken0_gt?: InputMaybe<Scalars['BigDecimal']>;
@@ -1599,6 +1899,7 @@ export type Pool_Filter = {
   observationIndex_lte?: InputMaybe<Scalars['BigInt']>;
   observationIndex_not?: InputMaybe<Scalars['BigInt']>;
   observationIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Pool_Filter>>>;
   poolDayData_?: InputMaybe<PoolDayData_Filter>;
   poolHourData_?: InputMaybe<PoolHourData_Filter>;
   sqrtPrice?: InputMaybe<Scalars['BigInt']>;
@@ -1784,8 +2085,38 @@ export enum Pool_OrderBy {
   Ticks = 'ticks',
   Token0 = 'token0',
   Token0Price = 'token0Price',
+  Token0Decimals = 'token0__decimals',
+  Token0DerivedEth = 'token0__derivedETH',
+  Token0FeesUsd = 'token0__feesUSD',
+  Token0Id = 'token0__id',
+  Token0Name = 'token0__name',
+  Token0PoolCount = 'token0__poolCount',
+  Token0Symbol = 'token0__symbol',
+  Token0TotalSupply = 'token0__totalSupply',
+  Token0TotalValueLocked = 'token0__totalValueLocked',
+  Token0TotalValueLockedUsd = 'token0__totalValueLockedUSD',
+  Token0TotalValueLockedUsdUntracked = 'token0__totalValueLockedUSDUntracked',
+  Token0TxCount = 'token0__txCount',
+  Token0UntrackedVolumeUsd = 'token0__untrackedVolumeUSD',
+  Token0Volume = 'token0__volume',
+  Token0VolumeUsd = 'token0__volumeUSD',
   Token1 = 'token1',
   Token1Price = 'token1Price',
+  Token1Decimals = 'token1__decimals',
+  Token1DerivedEth = 'token1__derivedETH',
+  Token1FeesUsd = 'token1__feesUSD',
+  Token1Id = 'token1__id',
+  Token1Name = 'token1__name',
+  Token1PoolCount = 'token1__poolCount',
+  Token1Symbol = 'token1__symbol',
+  Token1TotalSupply = 'token1__totalSupply',
+  Token1TotalValueLocked = 'token1__totalValueLocked',
+  Token1TotalValueLockedUsd = 'token1__totalValueLockedUSD',
+  Token1TotalValueLockedUsdUntracked = 'token1__totalValueLockedUSDUntracked',
+  Token1TxCount = 'token1__txCount',
+  Token1UntrackedVolumeUsd = 'token1__untrackedVolumeUSD',
+  Token1Volume = 'token1__volume',
+  Token1VolumeUsd = 'token1__volumeUSD',
   TotalValueLockedEth = 'totalValueLockedETH',
   TotalValueLockedToken0 = 'totalValueLockedToken0',
   TotalValueLockedToken1 = 'totalValueLockedToken1',
@@ -1842,6 +2173,7 @@ export type PositionSnapshot = {
 export type PositionSnapshot_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<PositionSnapshot_Filter>>>;
   blockNumber?: InputMaybe<Scalars['BigInt']>;
   blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
   blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
@@ -1914,9 +2246,14 @@ export type PositionSnapshot_Filter = {
   liquidity_lte?: InputMaybe<Scalars['BigInt']>;
   liquidity_not?: InputMaybe<Scalars['BigInt']>;
   liquidity_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<PositionSnapshot_Filter>>>;
   owner?: InputMaybe<Scalars['Bytes']>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
+  owner_gt?: InputMaybe<Scalars['Bytes']>;
+  owner_gte?: InputMaybe<Scalars['Bytes']>;
   owner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  owner_lt?: InputMaybe<Scalars['Bytes']>;
+  owner_lte?: InputMaybe<Scalars['Bytes']>;
   owner_not?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2021,9 +2358,52 @@ export enum PositionSnapshot_OrderBy {
   Liquidity = 'liquidity',
   Owner = 'owner',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Position = 'position',
+  PositionCollectedFeesToken0 = 'position__collectedFeesToken0',
+  PositionCollectedFeesToken1 = 'position__collectedFeesToken1',
+  PositionDepositedToken0 = 'position__depositedToken0',
+  PositionDepositedToken1 = 'position__depositedToken1',
+  PositionFeeGrowthInside0LastX128 = 'position__feeGrowthInside0LastX128',
+  PositionFeeGrowthInside1LastX128 = 'position__feeGrowthInside1LastX128',
+  PositionId = 'position__id',
+  PositionLiquidity = 'position__liquidity',
+  PositionOwner = 'position__owner',
+  PositionWithdrawnToken0 = 'position__withdrawnToken0',
+  PositionWithdrawnToken1 = 'position__withdrawnToken1',
   Timestamp = 'timestamp',
   Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp',
   WithdrawnToken0 = 'withdrawnToken0',
   WithdrawnToken1 = 'withdrawnToken1'
 }
@@ -2031,6 +2411,7 @@ export enum PositionSnapshot_OrderBy {
 export type Position_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Position_Filter>>>;
   collectedFeesToken0?: InputMaybe<Scalars['BigDecimal']>;
   collectedFeesToken0_gt?: InputMaybe<Scalars['BigDecimal']>;
   collectedFeesToken0_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -2095,9 +2476,14 @@ export type Position_Filter = {
   liquidity_lte?: InputMaybe<Scalars['BigInt']>;
   liquidity_not?: InputMaybe<Scalars['BigInt']>;
   liquidity_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Position_Filter>>>;
   owner?: InputMaybe<Scalars['Bytes']>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
+  owner_gt?: InputMaybe<Scalars['Bytes']>;
+  owner_gte?: InputMaybe<Scalars['Bytes']>;
   owner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  owner_lt?: InputMaybe<Scalars['Bytes']>;
+  owner_lte?: InputMaybe<Scalars['Bytes']>;
   owner_not?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2256,11 +2642,113 @@ export enum Position_OrderBy {
   Liquidity = 'liquidity',
   Owner = 'owner',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   TickLower = 'tickLower',
+  TickLowerCollectedFeesToken0 = 'tickLower__collectedFeesToken0',
+  TickLowerCollectedFeesToken1 = 'tickLower__collectedFeesToken1',
+  TickLowerCollectedFeesUsd = 'tickLower__collectedFeesUSD',
+  TickLowerCreatedAtBlockNumber = 'tickLower__createdAtBlockNumber',
+  TickLowerCreatedAtTimestamp = 'tickLower__createdAtTimestamp',
+  TickLowerFeeGrowthOutside0X128 = 'tickLower__feeGrowthOutside0X128',
+  TickLowerFeeGrowthOutside1X128 = 'tickLower__feeGrowthOutside1X128',
+  TickLowerFeesUsd = 'tickLower__feesUSD',
+  TickLowerId = 'tickLower__id',
+  TickLowerLiquidityGross = 'tickLower__liquidityGross',
+  TickLowerLiquidityNet = 'tickLower__liquidityNet',
+  TickLowerLiquidityProviderCount = 'tickLower__liquidityProviderCount',
+  TickLowerPoolAddress = 'tickLower__poolAddress',
+  TickLowerPrice0 = 'tickLower__price0',
+  TickLowerPrice1 = 'tickLower__price1',
+  TickLowerTickIdx = 'tickLower__tickIdx',
+  TickLowerUntrackedVolumeUsd = 'tickLower__untrackedVolumeUSD',
+  TickLowerVolumeToken0 = 'tickLower__volumeToken0',
+  TickLowerVolumeToken1 = 'tickLower__volumeToken1',
+  TickLowerVolumeUsd = 'tickLower__volumeUSD',
   TickUpper = 'tickUpper',
+  TickUpperCollectedFeesToken0 = 'tickUpper__collectedFeesToken0',
+  TickUpperCollectedFeesToken1 = 'tickUpper__collectedFeesToken1',
+  TickUpperCollectedFeesUsd = 'tickUpper__collectedFeesUSD',
+  TickUpperCreatedAtBlockNumber = 'tickUpper__createdAtBlockNumber',
+  TickUpperCreatedAtTimestamp = 'tickUpper__createdAtTimestamp',
+  TickUpperFeeGrowthOutside0X128 = 'tickUpper__feeGrowthOutside0X128',
+  TickUpperFeeGrowthOutside1X128 = 'tickUpper__feeGrowthOutside1X128',
+  TickUpperFeesUsd = 'tickUpper__feesUSD',
+  TickUpperId = 'tickUpper__id',
+  TickUpperLiquidityGross = 'tickUpper__liquidityGross',
+  TickUpperLiquidityNet = 'tickUpper__liquidityNet',
+  TickUpperLiquidityProviderCount = 'tickUpper__liquidityProviderCount',
+  TickUpperPoolAddress = 'tickUpper__poolAddress',
+  TickUpperPrice0 = 'tickUpper__price0',
+  TickUpperPrice1 = 'tickUpper__price1',
+  TickUpperTickIdx = 'tickUpper__tickIdx',
+  TickUpperUntrackedVolumeUsd = 'tickUpper__untrackedVolumeUSD',
+  TickUpperVolumeToken0 = 'tickUpper__volumeToken0',
+  TickUpperVolumeToken1 = 'tickUpper__volumeToken1',
+  TickUpperVolumeUsd = 'tickUpper__volumeUSD',
   Token0 = 'token0',
+  Token0Decimals = 'token0__decimals',
+  Token0DerivedEth = 'token0__derivedETH',
+  Token0FeesUsd = 'token0__feesUSD',
+  Token0Id = 'token0__id',
+  Token0Name = 'token0__name',
+  Token0PoolCount = 'token0__poolCount',
+  Token0Symbol = 'token0__symbol',
+  Token0TotalSupply = 'token0__totalSupply',
+  Token0TotalValueLocked = 'token0__totalValueLocked',
+  Token0TotalValueLockedUsd = 'token0__totalValueLockedUSD',
+  Token0TotalValueLockedUsdUntracked = 'token0__totalValueLockedUSDUntracked',
+  Token0TxCount = 'token0__txCount',
+  Token0UntrackedVolumeUsd = 'token0__untrackedVolumeUSD',
+  Token0Volume = 'token0__volume',
+  Token0VolumeUsd = 'token0__volumeUSD',
   Token1 = 'token1',
+  Token1Decimals = 'token1__decimals',
+  Token1DerivedEth = 'token1__derivedETH',
+  Token1FeesUsd = 'token1__feesUSD',
+  Token1Id = 'token1__id',
+  Token1Name = 'token1__name',
+  Token1PoolCount = 'token1__poolCount',
+  Token1Symbol = 'token1__symbol',
+  Token1TotalSupply = 'token1__totalSupply',
+  Token1TotalValueLocked = 'token1__totalValueLocked',
+  Token1TotalValueLockedUsd = 'token1__totalValueLockedUSD',
+  Token1TotalValueLockedUsdUntracked = 'token1__totalValueLockedUSDUntracked',
+  Token1TxCount = 'token1__txCount',
+  Token1UntrackedVolumeUsd = 'token1__untrackedVolumeUSD',
+  Token1Volume = 'token1__volume',
+  Token1VolumeUsd = 'token1__volumeUSD',
   Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp',
   WithdrawnToken0 = 'withdrawnToken0',
   WithdrawnToken1 = 'withdrawnToken1'
 }
@@ -2676,417 +3164,6 @@ export type QueryUniswapDayDatasArgs = {
   where?: InputMaybe<UniswapDayData_Filter>;
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  /** Access to subgraph metadata */
-  _meta?: Maybe<_Meta_>;
-  bundle?: Maybe<Bundle>;
-  bundles: Array<Bundle>;
-  burn?: Maybe<Burn>;
-  burns: Array<Burn>;
-  collect?: Maybe<Collect>;
-  collects: Array<Collect>;
-  factories: Array<Factory>;
-  factory?: Maybe<Factory>;
-  flash?: Maybe<Flash>;
-  flashes: Array<Flash>;
-  mint?: Maybe<Mint>;
-  mints: Array<Mint>;
-  pool?: Maybe<Pool>;
-  poolDayData?: Maybe<PoolDayData>;
-  poolDayDatas: Array<PoolDayData>;
-  poolHourData?: Maybe<PoolHourData>;
-  poolHourDatas: Array<PoolHourData>;
-  pools: Array<Pool>;
-  position?: Maybe<Position>;
-  positionSnapshot?: Maybe<PositionSnapshot>;
-  positionSnapshots: Array<PositionSnapshot>;
-  positions: Array<Position>;
-  swap?: Maybe<Swap>;
-  swaps: Array<Swap>;
-  tick?: Maybe<Tick>;
-  tickDayData?: Maybe<TickDayData>;
-  tickDayDatas: Array<TickDayData>;
-  tickHourData?: Maybe<TickHourData>;
-  tickHourDatas: Array<TickHourData>;
-  ticks: Array<Tick>;
-  token?: Maybe<Token>;
-  tokenDayData?: Maybe<TokenDayData>;
-  tokenDayDatas: Array<TokenDayData>;
-  tokenHourData?: Maybe<TokenHourData>;
-  tokenHourDatas: Array<TokenHourData>;
-  tokens: Array<Token>;
-  transaction?: Maybe<Transaction>;
-  transactions: Array<Transaction>;
-  uniswapDayData?: Maybe<UniswapDayData>;
-  uniswapDayDatas: Array<UniswapDayData>;
-};
-
-
-export type Subscription_MetaArgs = {
-  block?: InputMaybe<Block_Height>;
-};
-
-
-export type SubscriptionBundleArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionBundlesArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Bundle_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Bundle_Filter>;
-};
-
-
-export type SubscriptionBurnArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionBurnsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Burn_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Burn_Filter>;
-};
-
-
-export type SubscriptionCollectArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionCollectsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Collect_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Collect_Filter>;
-};
-
-
-export type SubscriptionFactoriesArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Factory_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Factory_Filter>;
-};
-
-
-export type SubscriptionFactoryArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionFlashArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionFlashesArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Flash_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Flash_Filter>;
-};
-
-
-export type SubscriptionMintArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionMintsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Mint_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Mint_Filter>;
-};
-
-
-export type SubscriptionPoolArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionPoolDayDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionPoolDayDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<PoolDayData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<PoolDayData_Filter>;
-};
-
-
-export type SubscriptionPoolHourDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionPoolHourDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<PoolHourData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<PoolHourData_Filter>;
-};
-
-
-export type SubscriptionPoolsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Pool_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Pool_Filter>;
-};
-
-
-export type SubscriptionPositionArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionPositionSnapshotArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionPositionSnapshotsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<PositionSnapshot_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<PositionSnapshot_Filter>;
-};
-
-
-export type SubscriptionPositionsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Position_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Position_Filter>;
-};
-
-
-export type SubscriptionSwapArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionSwapsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Swap_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Swap_Filter>;
-};
-
-
-export type SubscriptionTickArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTickDayDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTickDayDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TickDayData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<TickDayData_Filter>;
-};
-
-
-export type SubscriptionTickHourDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTickHourDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TickHourData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<TickHourData_Filter>;
-};
-
-
-export type SubscriptionTicksArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Tick_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Tick_Filter>;
-};
-
-
-export type SubscriptionTokenArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTokenDayDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTokenDayDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TokenDayData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<TokenDayData_Filter>;
-};
-
-
-export type SubscriptionTokenHourDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTokenHourDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TokenHourData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<TokenHourData_Filter>;
-};
-
-
-export type SubscriptionTokensArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Token_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Token_Filter>;
-};
-
-
-export type SubscriptionTransactionArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionTransactionsArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Transaction_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<Transaction_Filter>;
-};
-
-
-export type SubscriptionUniswapDayDataArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionUniswapDayDatasArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<UniswapDayData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<UniswapDayData_Filter>;
-};
-
 export type Swap = {
   __typename?: 'Swap';
   amount0: Scalars['BigDecimal'];
@@ -3133,6 +3210,7 @@ export type Swap_Filter = {
   amountUSD_lte?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not?: InputMaybe<Scalars['BigDecimal']>;
   amountUSD_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  and?: InputMaybe<Array<InputMaybe<Swap_Filter>>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -3149,9 +3227,14 @@ export type Swap_Filter = {
   logIndex_lte?: InputMaybe<Scalars['BigInt']>;
   logIndex_not?: InputMaybe<Scalars['BigInt']>;
   logIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Swap_Filter>>>;
   origin?: InputMaybe<Scalars['Bytes']>;
   origin_contains?: InputMaybe<Scalars['Bytes']>;
+  origin_gt?: InputMaybe<Scalars['Bytes']>;
+  origin_gte?: InputMaybe<Scalars['Bytes']>;
   origin_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  origin_lt?: InputMaybe<Scalars['Bytes']>;
+  origin_lte?: InputMaybe<Scalars['Bytes']>;
   origin_not?: InputMaybe<Scalars['Bytes']>;
   origin_not_contains?: InputMaybe<Scalars['Bytes']>;
   origin_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -3178,13 +3261,21 @@ export type Swap_Filter = {
   pool_starts_with_nocase?: InputMaybe<Scalars['String']>;
   recipient?: InputMaybe<Scalars['Bytes']>;
   recipient_contains?: InputMaybe<Scalars['Bytes']>;
+  recipient_gt?: InputMaybe<Scalars['Bytes']>;
+  recipient_gte?: InputMaybe<Scalars['Bytes']>;
   recipient_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  recipient_lt?: InputMaybe<Scalars['Bytes']>;
+  recipient_lte?: InputMaybe<Scalars['Bytes']>;
   recipient_not?: InputMaybe<Scalars['Bytes']>;
   recipient_not_contains?: InputMaybe<Scalars['Bytes']>;
   recipient_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_contains?: InputMaybe<Scalars['Bytes']>;
+  sender_gt?: InputMaybe<Scalars['Bytes']>;
+  sender_gte?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sender_lt?: InputMaybe<Scalars['Bytes']>;
+  sender_lte?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
   sender_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -3285,14 +3376,76 @@ export enum Swap_OrderBy {
   LogIndex = 'logIndex',
   Origin = 'origin',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Recipient = 'recipient',
   Sender = 'sender',
   SqrtPriceX96 = 'sqrtPriceX96',
   Tick = 'tick',
   Timestamp = 'timestamp',
   Token0 = 'token0',
+  Token0Decimals = 'token0__decimals',
+  Token0DerivedEth = 'token0__derivedETH',
+  Token0FeesUsd = 'token0__feesUSD',
+  Token0Id = 'token0__id',
+  Token0Name = 'token0__name',
+  Token0PoolCount = 'token0__poolCount',
+  Token0Symbol = 'token0__symbol',
+  Token0TotalSupply = 'token0__totalSupply',
+  Token0TotalValueLocked = 'token0__totalValueLocked',
+  Token0TotalValueLockedUsd = 'token0__totalValueLockedUSD',
+  Token0TotalValueLockedUsdUntracked = 'token0__totalValueLockedUSDUntracked',
+  Token0TxCount = 'token0__txCount',
+  Token0UntrackedVolumeUsd = 'token0__untrackedVolumeUSD',
+  Token0Volume = 'token0__volume',
+  Token0VolumeUsd = 'token0__volumeUSD',
   Token1 = 'token1',
-  Transaction = 'transaction'
+  Token1Decimals = 'token1__decimals',
+  Token1DerivedEth = 'token1__derivedETH',
+  Token1FeesUsd = 'token1__feesUSD',
+  Token1Id = 'token1__id',
+  Token1Name = 'token1__name',
+  Token1PoolCount = 'token1__poolCount',
+  Token1Symbol = 'token1__symbol',
+  Token1TotalSupply = 'token1__totalSupply',
+  Token1TotalValueLocked = 'token1__totalValueLocked',
+  Token1TotalValueLockedUsd = 'token1__totalValueLockedUSD',
+  Token1TotalValueLockedUsdUntracked = 'token1__totalValueLockedUSDUntracked',
+  Token1TxCount = 'token1__txCount',
+  Token1UntrackedVolumeUsd = 'token1__untrackedVolumeUSD',
+  Token1Volume = 'token1__volume',
+  Token1VolumeUsd = 'token1__volumeUSD',
+  Transaction = 'transaction',
+  TransactionBlockNumber = 'transaction__blockNumber',
+  TransactionGasPrice = 'transaction__gasPrice',
+  TransactionGasUsed = 'transaction__gasUsed',
+  TransactionId = 'transaction__id',
+  TransactionTimestamp = 'transaction__timestamp'
 }
 
 export type Tick = {
@@ -3339,6 +3492,7 @@ export type TickDayData = {
 export type TickDayData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TickDayData_Filter>>>;
   date?: InputMaybe<Scalars['Int']>;
   date_gt?: InputMaybe<Scalars['Int']>;
   date_gte?: InputMaybe<Scalars['Int']>;
@@ -3395,6 +3549,7 @@ export type TickDayData_Filter = {
   liquidityNet_lte?: InputMaybe<Scalars['BigInt']>;
   liquidityNet_not?: InputMaybe<Scalars['BigInt']>;
   liquidityNet_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<TickDayData_Filter>>>;
   pool?: InputMaybe<Scalars['String']>;
   pool_?: InputMaybe<Pool_Filter>;
   pool_contains?: InputMaybe<Scalars['String']>;
@@ -3472,7 +3627,54 @@ export enum TickDayData_OrderBy {
   LiquidityGross = 'liquidityGross',
   LiquidityNet = 'liquidityNet',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Tick = 'tick',
+  TickCollectedFeesToken0 = 'tick__collectedFeesToken0',
+  TickCollectedFeesToken1 = 'tick__collectedFeesToken1',
+  TickCollectedFeesUsd = 'tick__collectedFeesUSD',
+  TickCreatedAtBlockNumber = 'tick__createdAtBlockNumber',
+  TickCreatedAtTimestamp = 'tick__createdAtTimestamp',
+  TickFeeGrowthOutside0X128 = 'tick__feeGrowthOutside0X128',
+  TickFeeGrowthOutside1X128 = 'tick__feeGrowthOutside1X128',
+  TickFeesUsd = 'tick__feesUSD',
+  TickId = 'tick__id',
+  TickLiquidityGross = 'tick__liquidityGross',
+  TickLiquidityNet = 'tick__liquidityNet',
+  TickLiquidityProviderCount = 'tick__liquidityProviderCount',
+  TickPoolAddress = 'tick__poolAddress',
+  TickPrice0 = 'tick__price0',
+  TickPrice1 = 'tick__price1',
+  TickTickIdx = 'tick__tickIdx',
+  TickUntrackedVolumeUsd = 'tick__untrackedVolumeUSD',
+  TickVolumeToken0 = 'tick__volumeToken0',
+  TickVolumeToken1 = 'tick__volumeToken1',
+  TickVolumeUsd = 'tick__volumeUSD',
   VolumeToken0 = 'volumeToken0',
   VolumeToken1 = 'volumeToken1',
   VolumeUsd = 'volumeUSD'
@@ -3495,6 +3697,7 @@ export type TickHourData = {
 export type TickHourData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TickHourData_Filter>>>;
   feesUSD?: InputMaybe<Scalars['BigDecimal']>;
   feesUSD_gt?: InputMaybe<Scalars['BigDecimal']>;
   feesUSD_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -3527,6 +3730,7 @@ export type TickHourData_Filter = {
   liquidityNet_lte?: InputMaybe<Scalars['BigInt']>;
   liquidityNet_not?: InputMaybe<Scalars['BigInt']>;
   liquidityNet_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<TickHourData_Filter>>>;
   periodStartUnix?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gt?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gte?: InputMaybe<Scalars['Int']>;
@@ -3610,7 +3814,54 @@ export enum TickHourData_OrderBy {
   LiquidityNet = 'liquidityNet',
   PeriodStartUnix = 'periodStartUnix',
   Pool = 'pool',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Tick = 'tick',
+  TickCollectedFeesToken0 = 'tick__collectedFeesToken0',
+  TickCollectedFeesToken1 = 'tick__collectedFeesToken1',
+  TickCollectedFeesUsd = 'tick__collectedFeesUSD',
+  TickCreatedAtBlockNumber = 'tick__createdAtBlockNumber',
+  TickCreatedAtTimestamp = 'tick__createdAtTimestamp',
+  TickFeeGrowthOutside0X128 = 'tick__feeGrowthOutside0X128',
+  TickFeeGrowthOutside1X128 = 'tick__feeGrowthOutside1X128',
+  TickFeesUsd = 'tick__feesUSD',
+  TickId = 'tick__id',
+  TickLiquidityGross = 'tick__liquidityGross',
+  TickLiquidityNet = 'tick__liquidityNet',
+  TickLiquidityProviderCount = 'tick__liquidityProviderCount',
+  TickPoolAddress = 'tick__poolAddress',
+  TickPrice0 = 'tick__price0',
+  TickPrice1 = 'tick__price1',
+  TickTickIdx = 'tick__tickIdx',
+  TickUntrackedVolumeUsd = 'tick__untrackedVolumeUSD',
+  TickVolumeToken0 = 'tick__volumeToken0',
+  TickVolumeToken1 = 'tick__volumeToken1',
+  TickVolumeUsd = 'tick__volumeUSD',
   VolumeToken0 = 'volumeToken0',
   VolumeToken1 = 'volumeToken1',
   VolumeUsd = 'volumeUSD'
@@ -3619,6 +3870,7 @@ export enum TickHourData_OrderBy {
 export type Tick_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Tick_Filter>>>;
   collectedFeesToken0?: InputMaybe<Scalars['BigDecimal']>;
   collectedFeesToken0_gt?: InputMaybe<Scalars['BigDecimal']>;
   collectedFeesToken0_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -3715,6 +3967,7 @@ export type Tick_Filter = {
   liquidityProviderCount_lte?: InputMaybe<Scalars['BigInt']>;
   liquidityProviderCount_not?: InputMaybe<Scalars['BigInt']>;
   liquidityProviderCount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Tick_Filter>>>;
   pool?: InputMaybe<Scalars['String']>;
   poolAddress?: InputMaybe<Scalars['String']>;
   poolAddress_contains?: InputMaybe<Scalars['String']>;
@@ -3829,6 +4082,33 @@ export enum Tick_OrderBy {
   LiquidityProviderCount = 'liquidityProviderCount',
   Pool = 'pool',
   PoolAddress = 'poolAddress',
+  PoolCollectedFeesToken0 = 'pool__collectedFeesToken0',
+  PoolCollectedFeesToken1 = 'pool__collectedFeesToken1',
+  PoolCollectedFeesUsd = 'pool__collectedFeesUSD',
+  PoolCreatedAtBlockNumber = 'pool__createdAtBlockNumber',
+  PoolCreatedAtTimestamp = 'pool__createdAtTimestamp',
+  PoolFeeGrowthGlobal0X128 = 'pool__feeGrowthGlobal0X128',
+  PoolFeeGrowthGlobal1X128 = 'pool__feeGrowthGlobal1X128',
+  PoolFeeTier = 'pool__feeTier',
+  PoolFeesUsd = 'pool__feesUSD',
+  PoolId = 'pool__id',
+  PoolLiquidity = 'pool__liquidity',
+  PoolLiquidityProviderCount = 'pool__liquidityProviderCount',
+  PoolObservationIndex = 'pool__observationIndex',
+  PoolSqrtPrice = 'pool__sqrtPrice',
+  PoolTick = 'pool__tick',
+  PoolToken0Price = 'pool__token0Price',
+  PoolToken1Price = 'pool__token1Price',
+  PoolTotalValueLockedEth = 'pool__totalValueLockedETH',
+  PoolTotalValueLockedToken0 = 'pool__totalValueLockedToken0',
+  PoolTotalValueLockedToken1 = 'pool__totalValueLockedToken1',
+  PoolTotalValueLockedUsd = 'pool__totalValueLockedUSD',
+  PoolTotalValueLockedUsdUntracked = 'pool__totalValueLockedUSDUntracked',
+  PoolTxCount = 'pool__txCount',
+  PoolUntrackedVolumeUsd = 'pool__untrackedVolumeUSD',
+  PoolVolumeToken0 = 'pool__volumeToken0',
+  PoolVolumeToken1 = 'pool__volumeToken1',
+  PoolVolumeUsd = 'pool__volumeUSD',
   Price0 = 'price0',
   Price1 = 'price1',
   TickIdx = 'tickIdx',
@@ -3898,6 +4178,7 @@ export type TokenDayData = {
 export type TokenDayData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TokenDayData_Filter>>>;
   close?: InputMaybe<Scalars['BigDecimal']>;
   close_gt?: InputMaybe<Scalars['BigDecimal']>;
   close_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -3954,6 +4235,7 @@ export type TokenDayData_Filter = {
   open_lte?: InputMaybe<Scalars['BigDecimal']>;
   open_not?: InputMaybe<Scalars['BigDecimal']>;
   open_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  or?: InputMaybe<Array<InputMaybe<TokenDayData_Filter>>>;
   priceUSD?: InputMaybe<Scalars['BigDecimal']>;
   priceUSD_gt?: InputMaybe<Scalars['BigDecimal']>;
   priceUSD_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -4035,6 +4317,21 @@ export enum TokenDayData_OrderBy {
   Open = 'open',
   PriceUsd = 'priceUSD',
   Token = 'token',
+  TokenDecimals = 'token__decimals',
+  TokenDerivedEth = 'token__derivedETH',
+  TokenFeesUsd = 'token__feesUSD',
+  TokenId = 'token__id',
+  TokenName = 'token__name',
+  TokenPoolCount = 'token__poolCount',
+  TokenSymbol = 'token__symbol',
+  TokenTotalSupply = 'token__totalSupply',
+  TokenTotalValueLocked = 'token__totalValueLocked',
+  TokenTotalValueLockedUsd = 'token__totalValueLockedUSD',
+  TokenTotalValueLockedUsdUntracked = 'token__totalValueLockedUSDUntracked',
+  TokenTxCount = 'token__txCount',
+  TokenUntrackedVolumeUsd = 'token__untrackedVolumeUSD',
+  TokenVolume = 'token__volume',
+  TokenVolumeUsd = 'token__volumeUSD',
   TotalValueLocked = 'totalValueLocked',
   TotalValueLockedUsd = 'totalValueLockedUSD',
   UntrackedVolumeUsd = 'untrackedVolumeUSD',
@@ -4063,6 +4360,7 @@ export type TokenHourData = {
 export type TokenHourData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TokenHourData_Filter>>>;
   close?: InputMaybe<Scalars['BigDecimal']>;
   close_gt?: InputMaybe<Scalars['BigDecimal']>;
   close_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -4111,6 +4409,7 @@ export type TokenHourData_Filter = {
   open_lte?: InputMaybe<Scalars['BigDecimal']>;
   open_not?: InputMaybe<Scalars['BigDecimal']>;
   open_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  or?: InputMaybe<Array<InputMaybe<TokenHourData_Filter>>>;
   periodStartUnix?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gt?: InputMaybe<Scalars['Int']>;
   periodStartUnix_gte?: InputMaybe<Scalars['Int']>;
@@ -4200,6 +4499,21 @@ export enum TokenHourData_OrderBy {
   PeriodStartUnix = 'periodStartUnix',
   PriceUsd = 'priceUSD',
   Token = 'token',
+  TokenDecimals = 'token__decimals',
+  TokenDerivedEth = 'token__derivedETH',
+  TokenFeesUsd = 'token__feesUSD',
+  TokenId = 'token__id',
+  TokenName = 'token__name',
+  TokenPoolCount = 'token__poolCount',
+  TokenSymbol = 'token__symbol',
+  TokenTotalSupply = 'token__totalSupply',
+  TokenTotalValueLocked = 'token__totalValueLocked',
+  TokenTotalValueLockedUsd = 'token__totalValueLockedUSD',
+  TokenTotalValueLockedUsdUntracked = 'token__totalValueLockedUSDUntracked',
+  TokenTxCount = 'token__txCount',
+  TokenUntrackedVolumeUsd = 'token__untrackedVolumeUSD',
+  TokenVolume = 'token__volume',
+  TokenVolumeUsd = 'token__volumeUSD',
   TotalValueLocked = 'totalValueLocked',
   TotalValueLockedUsd = 'totalValueLockedUSD',
   UntrackedVolumeUsd = 'untrackedVolumeUSD',
@@ -4210,6 +4524,7 @@ export enum TokenHourData_OrderBy {
 export type Token_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Token_Filter>>>;
   decimals?: InputMaybe<Scalars['BigInt']>;
   decimals_gt?: InputMaybe<Scalars['BigInt']>;
   decimals_gte?: InputMaybe<Scalars['BigInt']>;
@@ -4262,6 +4577,7 @@ export type Token_Filter = {
   name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  or?: InputMaybe<Array<InputMaybe<Token_Filter>>>;
   poolCount?: InputMaybe<Scalars['BigInt']>;
   poolCount_gt?: InputMaybe<Scalars['BigInt']>;
   poolCount_gte?: InputMaybe<Scalars['BigInt']>;
@@ -4446,6 +4762,7 @@ export type TransactionSwapsArgs = {
 export type Transaction_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Transaction_Filter>>>;
   blockNumber?: InputMaybe<Scalars['BigInt']>;
   blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
   blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
@@ -4482,6 +4799,7 @@ export type Transaction_Filter = {
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
   mints_?: InputMaybe<Mint_Filter>;
+  or?: InputMaybe<Array<InputMaybe<Transaction_Filter>>>;
   swaps_?: InputMaybe<Swap_Filter>;
   timestamp?: InputMaybe<Scalars['BigInt']>;
   timestamp_gt?: InputMaybe<Scalars['BigInt']>;
@@ -4521,6 +4839,7 @@ export type UniswapDayData = {
 export type UniswapDayData_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<UniswapDayData_Filter>>>;
   date?: InputMaybe<Scalars['Int']>;
   date_gt?: InputMaybe<Scalars['Int']>;
   date_gte?: InputMaybe<Scalars['Int']>;
@@ -4545,6 +4864,7 @@ export type UniswapDayData_Filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<UniswapDayData_Filter>>>;
   tvlUSD?: InputMaybe<Scalars['BigDecimal']>;
   tvlUSD_gt?: InputMaybe<Scalars['BigDecimal']>;
   tvlUSD_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -4604,6 +4924,8 @@ export type _Block_ = {
   hash?: Maybe<Scalars['Bytes']>;
   /** The block number */
   number: Scalars['Int'];
+  /** The hash of the parent block */
+  parentHash?: Maybe<Scalars['Bytes']>;
   /** Integer representation of the timestamp stored in blocks for the chain */
   timestamp?: Maybe<Scalars['Int']>;
 };
