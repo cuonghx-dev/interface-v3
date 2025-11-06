@@ -8,7 +8,7 @@ const thegraphConfig = require('./graphql_thegraph.config')
 
 function fetchSchema(url, outputFile) {
   exec(
-    `get-graphql-schema --h Origin=https://app.uniswap.org ${url} | tee ${outputFile}.temp`,
+    `get-graphql-schema --h Origin=https://app.uniswap.org --h Authorization="Bearer ${process.env.THE_GRAPH_API_KEY}" ${url} | tee ${outputFile}.temp`,
     (error, stdout, stderr) => {
       if (error || stderr) {
         console.log(`Failed to fetch schema from ${url}`)
