@@ -1266,6 +1266,30 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@cuonghx.gu-tech/smart-order-router@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@cuonghx.gu-tech/smart-order-router/-/smart-order-router-1.0.3.tgz#0cabe1ac63745f8e6d0eeb553e9b580b3b8f4591"
+  integrity sha512-aW9CafAF1kQzrEHUMSnx7dPR+y3EtlB+7/KME8csGBRU64BVui3XH48vPjAKOlbafzRqV6HginPMTjrzJYplbQ==
+  dependencies:
+    "@uniswap/default-token-list" "^2.0.0"
+    "@uniswap/router-sdk" "^1.3.0"
+    "@uniswap/swap-router-contracts" "^1.3.0"
+    "@uniswap/token-lists" "^1.0.0-beta.25"
+    "@uniswap/v2-sdk" "^3.0.1"
+    "@uniswap/v3-sdk" "^3.7.0"
+    async-retry "^1.3.1"
+    await-timeout "^1.1.1"
+    axios "^0.21.1"
+    bunyan "^1.8.15"
+    bunyan-blackhole "^1.1.1"
+    ethers "^5.6.1"
+    graphql "^15.5.0"
+    graphql-request "^3.4.0"
+    lodash "^4.17.21"
+    mnemonist "^0.38.3"
+    node-cache "^5.1.2"
+    stats-lite "^2.2.0"
+
 "@cypress/request@^2.88.10":
   version "2.88.10"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.10.tgz#b66d76b07f860d3a4b8d7a0604d020c662752cce"
