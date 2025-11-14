@@ -146,6 +146,10 @@ export const networkColors = {
     light: '#3667F6',
     dark: '#3667F6',
   },
+  jocTestnet: {
+    light: '#222222',
+    dark: '#FFFFFF',
+  },
 }
 
 const sporeLight = {
@@ -310,6 +314,7 @@ export const colorsLight = {
   chain_3: colors.yellowVibrant,
   chain_4: colors.pinkVibrant,
   chain_5: colors.greenVibrant,
+  chain_10081: networkColors.jocTestnet.light,
 }
 
 export type ColorKeys = keyof typeof colorsLight
@@ -389,4 +394,5 @@ export const colorsDark = {
   chain_3: colors.yellowVibrant,
   chain_4: colors.pinkVibrant,
   chain_5: colors.greenVibrant,
+  chain_10081: networkColors.jocTestnet.dark,
 }

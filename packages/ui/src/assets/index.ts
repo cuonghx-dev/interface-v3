@@ -78,3 +78,5 @@ export const SECURITY_SCREEN_BACKGROUND_LIGHT = {
 }
 
 export const DEAD_LUNI = require('./graphics/dead-luni.png')
+
+export const JOC_TESTNET_LOGO = require('./logos/svg/joc-logo.svg')

@@ -554,6 +554,32 @@ class AvaxNativeCurrency extends NativeCurrency {
   }
 }
 
+export function isJoc(chainId: number): chainId is UniverseChainId.JocTestnet {
+  return chainId === UniverseChainId.JocTestnet
+}
+
+class JocNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    if (!isJoc(this.chainId)) {
+      throw new Error('Not joc')
+    }
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    if (!isJoc(chainId)) {
+      throw new Error('Not joc')
+    }
+    super(chainId, 18, 'JOC', 'Japan Open Chain Token')
+  }
+}
+
 class ExtendedEther extends NativeCurrency {
   public get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
@@ -592,6 +618,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = new BscNativeCurrency(chainId)
   } else if (isAvalanche(chainId)) {
     nativeCurrency = new AvaxNativeCurrency(chainId)
+  } else if (isJoc(chainId)) {
+    nativeCurrency = new JocNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

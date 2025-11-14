@@ -9,6 +9,7 @@ import {
   BNB_LOGO,
   CELO_LOGO,
   ETHEREUM_LOGO,
+  JOC_TESTNET_LOGO,
   OPTIMISM_LOGO,
   POLYGON_LOGO,
   ZKSYNC_LOGO,
@@ -117,6 +118,12 @@ export function getChainUI(chainId: InterfaceChainId, darkMode: boolean): ChainU
             bgColor: 'rgba(54, 103, 246, 0.12)',
             textColor: '#3667F6',
           }
+    case UniverseChainId.JocTestnet:
+      return {
+        symbol: JOC_TESTNET_LOGO,
+        bgColor: '#00000033',
+        textColor: '#000000',
+      }
     default:
       return undefined
   }

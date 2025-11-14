@@ -13,6 +13,7 @@ import {
   USDC_POLYGON,
   USDC_ZKSYNC,
   USDC_ZORA,
+  USDTX_JOC_TESTNET,
   USDT_BNB,
 } from 'uniswap/src/constants/tokens'
 import { useTrade } from 'uniswap/src/features/transactions/swap/hooks/useTrade'
@@ -35,6 +36,7 @@ export const STABLECOIN_AMOUNT_OUT: { [chainId: number]: CurrencyAmount<Token> }
   [UniverseChainId.Celo]: CurrencyAmount.fromRawAmount(USDC_CELO, 10_000e18),
   [UniverseChainId.Zora]: CurrencyAmount.fromRawAmount(USDC_ZORA, 10_000e6),
   [UniverseChainId.Zksync]: CurrencyAmount.fromRawAmount(USDC_ZKSYNC, 10_000e6),
+  [UniverseChainId.JocTestnet]: CurrencyAmount.fromRawAmount(USDTX_JOC_TESTNET, 10_000e6),
 }
 
 /**
